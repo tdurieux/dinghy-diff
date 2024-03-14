@@ -1,21 +1,17 @@
 {
   "compilerOptions": {
+    "module": "commonjs",
+    "lib": ["es6"],
+    "target": "es6",
     "declaration": true,
-    "jsx": "react",
-    "allowJs": true,
-
-    /* Language and Environment */
-    "target": "esnext",
-
-    /* Modules */
-    "module": "esnext",
-    "moduleResolution": "node",
     "sourceMap": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-
-    /* Type Checking */
-    "strict": true,
-    "skipLibCheck": true
-  }
+    "noImplicitAny": false,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "outDir": "./dist",
+    "moduleResolution": "node"
+  },
+  "include": ["src/*.ts"],
+  "exclude": []
 }
