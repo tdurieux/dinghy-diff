@@ -17,6 +17,7 @@
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "knip": "knip"
   },
+  "main": "dist/index.js",
   "bin": {
     "semanticdiff": "dist/main.js"
   },

@@ -20,10 +20,11 @@ const dinghyDiff = require("@tdurieux/dinghy-diff");
 const oldPath = "path/to/original/document";
 const newPath = "path/to/changed/document";
 
-const tNodeSerDes = new dinghyDiff.ASTDataSerDes(diffOptions);
+
+const tNodeSerDes = new dinghyDiff.ASTDataSerDes(dinghyDiff.defaultDiffOptions);
 const oldTree = tNodeSerDes.parseFromString(fs.readFileSync(oldPath).toString());
 const newTree = tNodeSerDes.parseFromString(fs.readFileSync(newPath).toString());
-const editScript: dinghyDiff.EditScript<dinghyDiff.ASTData> = new dinghyDiff.SemanticDiff<dinghyDiff.ASTData>(diffOptions).diff(
+const editScript: dinghyDiff.EditScript<dinghyDiff.ASTData> = new dinghyDiff.SemanticDiff<dinghyDiff.ASTData>(dinghyDiff.defaultDiffOptions).diff(
   oldTree,
   newTree
 );
@@ -48,6 +49,6 @@ Options:
            [string] [choices: "editScript", "deltaTree"] [default: "editScript"]
 ```
 
-## License 
+## License
 
 Dinghy-diff is licensed under the Apache License. See the LICENSE file for details.

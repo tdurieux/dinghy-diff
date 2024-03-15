@@ -41,24 +41,15 @@ const argv = yargs(hideBin(process.argv))
         });
     },
     (argv) => {
-      const tNodeDesOptions: ISerDesOptions = {
-        ...defaultDiffOptions
-      };
-      const diffOptions = {
-        ...tNodeDesOptions,
-        ...defaultDiffOptions
-      };
-
-      const tNodeSerDes = new ASTDataSerDes(diffOptions);
+      const tNodeSerDes = new ASTDataSerDes(defaultDiffOptions);
       const oldTree = tNodeSerDes.parseFromString(fs.readFileSync(argv.old as string).toString());
       const newTree = tNodeSerDes.parseFromString(fs.readFileSync(argv.new as string).toString());
 
       switch (argv.format) {
         case 'editScript': {
-          const editScript: EditScript<ASTData> = new SemanticDiff<ASTData>(diffOptions).diff(
-            oldTree,
-            newTree
-          );
+          const editScript: EditScript<ASTData> = new SemanticDiff<ASTData>(
+            defaultDiffOptions
+          ).diff(oldTree, newTree);
           for (const edit of editScript) {
             if (edit.type === 'update') {
               console.log(
@@ -98,7 +89,7 @@ const argv = yargs(hideBin(process.argv))
         }
         case 'deltaTree': {
           const deltaTreeGenerator = new DeltaTreeGenerator<ASTData>();
-          const deltaTree = deltaTreeGenerator.generate(oldTree, newTree, diffOptions);
+          const deltaTree = deltaTreeGenerator.generate(oldTree, newTree, defaultDiffOptions);
           console.log(tNodeSerDes.buildString(deltaTree));
           break;
         }
