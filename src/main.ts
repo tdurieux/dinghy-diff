@@ -41,7 +41,7 @@ const argv = yargs(hideBin(process.argv))
         });
     },
     (argv) => {
-      const tNodeSerDes = new ASTDataSerDes(defaultDiffOptions);
+      const tNodeSerDes = new ASTDataSerDes();
       const oldTree = tNodeSerDes.parseFromString(fs.readFileSync(argv.old as string).toString());
       const newTree = tNodeSerDes.parseFromString(fs.readFileSync(argv.new as string).toString());
 

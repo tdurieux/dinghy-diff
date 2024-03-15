@@ -9,8 +9,8 @@ export default class SemanticDiff<T> {
   constructor(private options: ISemanticDiffOptions) {}
 
   diff(oldTree: TNode<T>, newTree: TNode<T>): EditScript<T> {
-    const matchPipeline = MatchPipeline.fromMode(this.options); // TODO with options
-    matchPipeline.execute(oldTree, newTree, new Comparator(this.options)); // TODO maybe move
+    const matchPipeline = MatchPipeline.fromMode(this.options);
+    matchPipeline.execute(oldTree, newTree, new Comparator(this.options));
     const editScriptGenerator = new EditScriptGenerator<T>(this.options);
     const editScript = editScriptGenerator.generateEditScript(oldTree, newTree);
     return editScript;

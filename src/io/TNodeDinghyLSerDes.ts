@@ -9,7 +9,7 @@ import NodeType from '../grammar/NodeType';
 import { AbstractNode } from '@tdurieux/dinghy/build/core/core-types';
 
 export default abstract class TNodeDinghyLSerDes<T> extends SerDes<TNode<T>> {
-  public constructor(private options: ISerDesOptions) {
+  public constructor() {
     super();
   }
 
@@ -32,12 +32,8 @@ export default abstract class TNodeDinghyLSerDes<T> extends SerDes<TNode<T>> {
       if (childElement == null) continue;
       children.push(this.parseAST(childElement, includeChildren));
     }
-    const text = ast instanceof coreTypes.AbstractValueNode ? ast.value : ast.type;
-
-    let nodeType = NodeType.INNER;
-    if (ast instanceof coreTypes.AbstractValueNode) {
-      nodeType = NodeType.LEAF;
-    }
+    const text = (ast as any).value ? (ast as any).value : ast.type;
+    const nodeType = (ast as any).value ? NodeType.LEAF : NodeType.INNER;
 
     const builder = new TNodeBuilder<T>()
       .grammarNode(new GrammarNode(nodeType, type, []))
