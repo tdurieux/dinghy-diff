@@ -3,9 +3,10 @@ import ISerDesOptions from './options/ISerDesOptions';
 import { Nullable } from '../Types';
 import TNode from '../tree/TNode';
 import TNodeBuilder from '../tree/TNodeBuilder';
-import { dockerfileParser, coreTypes } from '@tdurieux/dinghy';
+import { dockerfileParser, coreTypes, shellParser } from '@tdurieux/dinghy';
 import GrammarNode from '../grammar/GrammarNode';
 import NodeType from '../grammar/NodeType';
+import { AbstractNode } from '@tdurieux/dinghy/build/core/core-types';
 
 export default abstract class TNodeDinghyLSerDes<T> extends SerDes<TNode<T>> {
   public constructor(private options: ISerDesOptions) {
@@ -47,7 +48,12 @@ export default abstract class TNodeDinghyLSerDes<T> extends SerDes<TNode<T>> {
   }
 
   public override parseFromString(code: string, includeChildren: boolean = true): TNode<T> {
-    const root = dockerfileParser.parseDocker(code);
+    let root: AbstractNode<any>;
+    if (code.includes('FROM')) {
+      root = dockerfileParser.parseDocker(code);
+    } else {
+      root = shellParser.parseShell(code);
+    }
     return this.parseAST(root, includeChildren);
   }
 }

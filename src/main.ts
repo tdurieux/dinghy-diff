@@ -12,7 +12,7 @@ import ASTData from './data/ASTData';
 const argv = yargs(hideBin(process.argv))
   .command(
     'diff <old> <new>',
-    'Calculate and show the difference between two XML documents',
+    'Calculate the difference between two source files. The supported languages are Dockerfile and Shell.',
     (yargs) => {
       yargs
         .positional('old', {
@@ -23,12 +23,6 @@ const argv = yargs(hideBin(process.argv))
           description: 'Path to the changed document',
           type: 'string'
         })
-        .option('threshold', {
-          description: 'Define the threshold for matching nodes',
-          alias: 't',
-          type: 'number',
-          default: 0.4
-        })
         .option('format', {
           description: 'Select the output format',
           alias: 'f',
@@ -36,21 +30,12 @@ const argv = yargs(hideBin(process.argv))
           choices: ['editScript', 'deltaTree'],
           default: 'editScript'
         })
-        .option('pretty', {
-          description: 'Pretty-print the output XML document',
-          alias: 'p',
-          type: 'boolean',
-          default: false
-        })
         .check((argv) => {
           if (argv.old == null || !fs.existsSync(argv.old)) {
             throw new Error(argv.old + ' ist not a valid file path');
           }
           if (argv.new == null || !fs.existsSync(argv.new)) {
             throw new Error(argv.new + ' ist not a valid file path');
-          }
-          if (argv.threshold < 0 || argv.threshold > 1) {
-            throw new Error('threshold must be in [0,1]');
           }
           return true;
         });
