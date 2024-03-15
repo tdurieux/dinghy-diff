@@ -1,7 +1,6 @@
 {
-  "name": "semantic-diff",
+  "name": "@tdurieux/dinghy-diff",
   "version": "1.0.0",
-  "homepage": "https://toemmsche.github.io/semantic-diff",
   "description": "",
   "engines": {
     "node": ">=16.0.0"
@@ -15,7 +14,7 @@
     "knip": "knip"
   },
   "bin": {
-    "semanticdiff": "dist/src/semantic-diff/main.js"
+    "semanticdiff": "dist/main.js"
   },
   "dependencies": {
     "@tdurieux/dinghy": "^1.0.0",
